@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Uppsala City – eventskiss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Layout: ljus, öppen programtidning med mycket luft. Datum är alltid den största signalen, bärnsten som enda accent. */
+  :root{
+    --night:#1a2238; --night2:#f3f1ec; --paper:#ffffff; --soft:#f6f4ef; --card:#ffffff; --ink:#1a2030; --muted:#6a707c; --line:#ebe7df;
+    --glow:#ffb43c; --red:#e2483c; --blue:#0071bc; --blue-dark:#005a96;
+    --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+    --body:"Figtree",ui-sans-serif,system-ui,sans-serif;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;cursor:pointer}
+  img,svg{max-width:100%}
+  :focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:4px}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+  h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.025em;line-height:1.02;text-wrap:balance}
+  h1{font-size:clamp(42px,6.4vw,92px)}
+  h2{font-size:clamp(30px,3.8vw,52px)}
+  h3{font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1.2}
+  section{padding:104px 0}
+  .muted{color:var(--muted)}
+  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;display:block}
+  
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font-weight:600;font-size:15px;border:0;transition:.2s}
+  .btn-glow{background:var(--blue);color:#fff}
+  .btn-glow:hover{background:var(--blue-dark);transform:translateY(-1px)}
+  .btn-dark{background:var(--ink);color:#fff}
+  .btn-dark:hover{background:#2a3247}
+  .btn-ghost{border:1.5px solid currentColor;background:none;color:inherit}
+  .btn-ghost:hover{background:var(--soft)}
+  .link{font-weight:600;font-size:15px;border-bottom:2px solid var(--blue);padding-bottom:2px}
+  
+  .row-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+
+  .note{background:var(--soft);color:var(--muted);text-align:center;font-size:12.5px;font-weight:600;padding:7px 16px}
+
+  /* header */
+  header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);color:var(--ink);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:80px;gap:24px}
+  .logo{font-family:var(--display);font-size:24px;font-weight:800;letter-spacing:-.03em;display:flex;align-items:center;gap:10px;white-space:nowrap}
+  .logo i{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffe2a3,var(--glow) 55%,#e98a1a);box-shadow:0 0 16px rgba(255,180,60,.45);display:block}
+  .logo-img{height:48px;width:auto;display:block}
+  footer .logo-img{height:64px}
+  .menu{display:flex;gap:28px;font-size:15px;font-weight:500}
+  .menu a{color:var(--muted);padding:6px 0;border-bottom:2px solid transparent;transition:.2s}
+  .menu a:hover,.menu a.active{color:var(--ink)}
+  .menu a.active{border-color:var(--blue)}
+  .nav-right{display:flex;align-items:center;gap:14px}
+  .nav-right .btn{padding:10px 18px;font-size:14px}
+  .saved-btn{background:var(--soft);color:var(--ink);border:0;border-radius:999px;padding:9px 14px;font-size:14px;display:flex;gap:8px;align-items:center}
+  .saved-btn span{background:var(--blue);color:#fff;border-radius:999px;font-size:12px;font-weight:700;min-width:20px;height:20px;display:grid;place-items:center;padding:0 6px}
+  .burger{display:none;background:none;border:0;width:44px;height:44px;padding:12px 10px}
+  .burger span{display:block;height:2px;background:var(--ink);border-radius:2px;transition:.25s}
+  .burger span+span{margin-top:6px}
+  .burger.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+
+  /* art */
+  .art{position:relative;overflow:hidden;border-radius:20px;background:var(--soft)}
+  .art canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .art .cap{position:absolute;left:14px;bottom:12px;font-size:11.5px;color:rgba(26,32,48,.55);z-index:2;letter-spacing:.04em}
+
+  /* hero */
+  .night{background:var(--paper);color:var(--ink)}
+  .hero{padding:72px 0 40px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:stretch}
+  .hero-copy{display:flex;flex-direction:column;justify-content:center}
+  .hero-copy p{font-size:19px;color:var(--muted);max-width:470px;margin:22px 0 30px}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:15px;color:var(--ink);margin-top:20px}
+  .hero-meta span{display:flex;align-items:center;gap:8px}
+  .hero-meta span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--blue)}
+  .hero-art{min-height:520px}
+  .slide-dots{display:flex;gap:8px;margin-top:36px}
+  .slide-dots button{width:34px;height:4px;border-radius:4px;border:0;background:var(--line);padding:0}
+  .slide-dots button.on{background:var(--blue)}
+  .countdown{position:absolute;right:18px;top:18px;z-index:3;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border-radius:14px;padding:12px 16px;display:flex;gap:16px;color:var(--ink);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+  .countdown div{text-align:center;font-variant-numeric:tabular-nums}
+  .countdown strong{display:block;font-family:var(--display);font-size:26px;line-height:1}
+  .countdown small{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+  .hero-badge{position:absolute;left:18px;top:18px;z-index:3}
+
+  /* quick filter */
+  .quick{display:flex;gap:10px;flex-wrap:wrap;margin-top:56px;padding-top:28px;border-top:1px solid var(--line);align-items:center}
+  .quick > span{font-size:14px;color:var(--muted);margin-right:6px}
+  .chip{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:9px 16px;font-size:14px;font-weight:500;transition:.15s;display:inline-flex;gap:8px;align-items:center}
+  .chip:hover{border-color:var(--ink)}
+  .chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+  .chip i{width:9px;height:9px;border-radius:50%;display:block}
+  
+
+  /* date strip */
+  .strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;margin-bottom:36px;scrollbar-width:thin}
+  .day{flex:0 0 74px;border:1.5px solid var(--line);background:var(--card);border-radius:16px;padding:12px 6px;text-align:center;transition:.15s;position:relative;color:var(--ink)}
+  .day small{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  .day strong{display:block;font-family:var(--display);font-size:28px;line-height:1.1;font-variant-numeric:tabular-nums}
+  .day em{display:flex;gap:3px;justify-content:center;margin-top:6px;min-height:6px}
+  .day em i{width:6px;height:6px;border-radius:50%;display:block}
+  .day:hover{border-color:var(--ink)}
+  .day.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .day.on small{color:rgba(255,255,255,.7)}
+  .day.today::after{content:"Idag";position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:999px;letter-spacing:.04em}
+
+  /* event cards */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .ev{display:flex;flex-direction:column;position:relative}
+  .ev .art{aspect-ratio:4/3;margin-bottom:16px;transition:transform .25s}
+  .ev:hover .art{transform:translateY(-3px)}
+  .ev h3{margin:6px 0 6px}
+  .ev:hover h3{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+  .ev p{font-size:15px;color:var(--muted)}
+  .ev .where{font-size:14px;color:var(--ink);font-weight:500;margin-top:8px}
+  .date-badge{position:absolute;left:14px;top:14px;z-index:3;background:#fff;color:var(--ink);border-radius:12px;padding:8px 12px;text-align:center;min-width:62px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+  .date-badge small{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+  .date-badge strong{display:block;font-family:var(--display);font-size:26px;line-height:1;font-variant-numeric:tabular-nums}
+  .date-badge.range strong{font-size:17px;line-height:1.25}
+  .heart{position:absolute;right:12px;top:12px;z-index:4;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.92);display:grid;place-items:center;transition:.15s}
+  .heart:hover{transform:scale(1.08)}
+  .heart svg{width:19px;height:19px;fill:none;stroke:var(--ink);stroke-width:2}
+  .heart.on svg{fill:var(--red);stroke:var(--red)}
+  .tags{display:flex;gap:6px;flex-wrap:wrap}
+  .tag{font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--soft);color:var(--ink)}
+  .tag.free{background:#dff3e6;color:#17663d}
+  .tag.cat{color:#fff}
+  .empty{grid-column:1/-1;border:1.5px dashed var(--line);border-radius:18px;padding:48px;text-align:center;color:var(--muted)}
+
+  /* featured big list */
+  .feature-row{display:grid;grid-template-columns:1.3fr 1fr;gap:28px}
+  .feature-row .big .art{aspect-ratio:auto;height:100%;min-height:440px}
+  .stack{display:grid;gap:14px}
+  .mini{display:grid;grid-template-columns:96px 1fr;gap:18px;align-items:center;background:var(--card);border-radius:18px;padding:12px;border:1px solid var(--line);transition:.15s}
+  .mini:hover{border-color:var(--ink)}
+  .mini .art{aspect-ratio:1;border-radius:12px}
+  .mini small{font-size:13px;color:var(--blue);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+  .mini h3{font-size:18px;margin:2px 0}
+  .mini p{font-size:14px;color:var(--muted)}
+
+  /* map */
+  .mapwrap{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:stretch}
+  .map{position:relative;border-radius:22px;overflow:hidden;background:#eef1f4;min-height:480px}
+  .map svg{display:block;width:100%;height:100%}
+  .pin{cursor:pointer}
+  .pin circle.halo{animation:pulse 2.4s ease-out infinite;transform-origin:center;transform-box:fill-box}
+  @keyframes pulse{0%{opacity:.7;transform:scale(.6)}100%{opacity:0;transform:scale(2.2)}}
+  .map-panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px;display:flex;flex-direction:column;gap:16px}
+  .map-panel h3{font-size:26px}
+  .map-panel .list a{display:block;padding:14px 0;border-top:1px solid var(--line)}
+  .map-panel .list a:hover strong{color:var(--blue)}
+  .map-panel .list small{display:block;font-size:13px;color:var(--muted)}
+  .map-panel .list strong{font-weight:600}
+
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .stats div{padding:30px 24px 30px 0}
+  .stats div+div{padding-left:24px;border-left:1px solid var(--line)}
+  .stats strong{display:block;font-family:var(--display);font-size:44px;line-height:1;margin-bottom:8px;font-variant-numeric:tabular-nums}
+  .stats span{font-size:14px;color:var(--muted)}
+
+  /* news */
+  .news{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .news a{border-top:2px solid var(--ink);padding-top:16px;display:block}
+  .news small{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .news h3{font-size:19px;margin:8px 0}
+  .news p{font-size:14px;color:var(--muted)}
+  .news a:hover h3{color:var(--blue)}
+
+  /* cta bands */
+  .band{border-radius:26px;padding:56px;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+  .band.glow{background:#e6f1fa;color:var(--ink)}
+  .band.dark{background:var(--soft);color:var(--ink)}
+  .band p{font-size:17px;margin-top:14px;max-width:520px;opacity:.85}
+  .nl{display:flex;gap:10px;flex-wrap:wrap}
+  .nl input{flex:1;min-width:200px;border:1.5px solid var(--line);border-radius:999px;padding:15px 22px;font:inherit;font-size:15px;background:#fff;color:var(--ink)}
+
+  /* page head */
+  .page-head{padding:72px 0 56px;border-bottom:1px solid var(--line)}
+  .crumbs{font-size:14px;color:var(--muted);margin-bottom:22px}
+  .crumbs a:hover{color:var(--ink)}
+  .page-head p.lead{font-size:19px;color:var(--muted);max-width:600px;margin-top:20px}
+
+  /* evenemang page */
+  .toolbar{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:22px}
+  .seg{display:inline-flex;background:var(--soft);border-radius:999px;padding:4px}
+  .seg button{border:0;background:none;padding:9px 18px;border-radius:999px;font-size:14px;font-weight:600;color:var(--muted)}
+  .seg button.on{background:var(--card);color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+  .search{display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:0 18px;min-width:280px}
+  .search input{border:0;background:none;font:inherit;font-size:15px;padding:12px 0;flex:1;outline:none;color:var(--ink)}
+  .search:focus-within{border-color:var(--ink)}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px}
+  .result-count{font-size:14px;color:var(--muted);margin-bottom:20px}
+
+  .cal{background:var(--card);border-radius:22px;border:1px solid var(--line);overflow:hidden;margin-bottom:48px}
+  .cal-head{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}
+  .cal-head h3{font-size:24px;text-transform:capitalize}
+  .cal-head button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:none;font-size:18px}
+  .cal-head button:hover{border-color:var(--ink)}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+  .cal-grid .dow{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line)}
+  .cell{min-width:0;min-height:112px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px;text-align:left;background:none;border-top:0;border-left:0;display:flex;flex-direction:column;gap:4px;color:var(--ink)}
+  .cell:nth-child(7n){border-right:0}
+  .cell.out{background:#fbfaf8;color:#b5b0a6}
+  .cell .n{font-weight:600;font-size:14px;font-variant-numeric:tabular-nums;width:28px;height:28px;display:grid;place-items:center;border-radius:50%}
+  .cell.today .n{background:var(--blue);color:#fff}
+  .cell.sel{background:#fff6e4;box-shadow:inset 0 0 0 2px var(--glow)}
+  .cell .e{font-size:12px;line-height:1.3;padding:3px 6px;border-radius:6px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cell .more{font-size:12px;color:var(--muted)}
+  .cell:hover{background:#fbf6ec}
+
+  /* detail */
+  .detail-hero{padding:40px 0 64px}
+  .detail-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:end}
+  .detail-grid .art{min-height:460px}
+  .detail-body{display:grid;grid-template-columns:1.4fr 1fr;gap:64px;align-items:start}
+  .detail-body .lead{font-size:20px;line-height:1.6;margin-bottom:22px;max-width:62ch}
+  .detail-body p{max-width:62ch;margin-bottom:16px}
+  .facts{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:8px 26px 26px;position:sticky;top:96px}
+  .facts dl div{padding:16px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:96px 1fr;gap:12px}
+  .facts dt{font-size:13px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding-top:2px}
+  .facts dd{font-weight:500}
+  .facts .actions{display:grid;gap:10px;margin-top:22px}
+  .facts .actions .btn{justify-content:center}
+  .program{list-style:none;margin:28px 0 8px;border-left:2px solid var(--line);padding-left:26px}
+  .program li{position:relative;padding:0 0 22px}
+  .program li::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px var(--paper)}
+  .program time{font-weight:700;font-variant-numeric:tabular-nums;display:block;font-size:15px}
+  .program span{color:var(--muted);font-size:15px}
+  .minimap{margin-top:18px;border-radius:14px;overflow:hidden;height:180px;background:#eef1f4}
+
+  /* directory */
+  .dir{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .biz{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:6px;transition:.15s}
+  .biz:hover{border-color:var(--ink);transform:translateY(-2px)}
+  .biz .ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-family:var(--display);font-weight:800;color:#fff;font-size:18px;margin-bottom:8px}
+  .biz small{font-size:13px;color:var(--muted)}
+  .biz .open{font-size:13px;font-weight:600;color:#17663d;display:flex;gap:6px;align-items:center}
+  .biz .open::before{content:"";width:7px;height:7px;border-radius:50%;background:#26a35a}
+  table.garages td{text-align:left!important;font-weight:400!important}
+  .avatar{width:56px;height:56px;border-radius:50%;background:#e6f1fa;color:var(--blue);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:19px;margin-bottom:16px}
+  .gal.insta{grid-auto-rows:auto}
+  .art.r43{aspect-ratio:4/3}
+  .gal.insta .art{aspect-ratio:1;grid-row:auto!important;grid-column:auto!important}
+  a.icard:hover{border-color:var(--ink)}
+  .biz .new{align-self:flex-start;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;letter-spacing:.04em}
+
+  /* info pages */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .icard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px}
+  .icard .num{font-family:var(--display);font-weight:800;font-size:15px;color:var(--blue);display:block;margin-bottom:18px}
+  .icard h3{margin-bottom:10px}
+  .icard p{color:var(--muted);font-size:15px}
+  table.hours{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+  table.hours td{padding:15px 0;border-bottom:1px solid var(--line)}
+  table.hours td:last-child{text-align:right;font-weight:600}
+  table.hours tr.now td{color:var(--red)}
+  .pill-open{display:inline-flex;gap:8px;align-items:center;background:#dff3e6;color:#17663d;font-weight:600;font-size:14px;padding:6px 14px;border-radius:999px;margin-bottom:20px}
+  .pill-open::before{content:"";width:8px;height:8px;border-radius:50%;background:#26a35a}
+
+  /* forms */
+  form.f{display:grid;gap:22px}
+  .f .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .f label{display:grid;gap:8px;font-size:13px;font-weight:600;color:var(--muted)}
+  .f input,.f select,.f textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;outline:none}
+  .f input:focus,.f select:focus,.f textarea:focus{border-color:var(--ink)}
+  .f textarea{min-height:120px;resize:vertical}
+  .checkrow{display:flex;gap:10px;flex-wrap:wrap}
+  .checkrow label{display:flex;flex-direction:row;align-items:center;gap:8px;border:1.5px solid var(--line);border-radius:999px;padding:9px 16px;font-weight:500;color:var(--ink);background:var(--card);cursor:pointer}
+  .checkrow input{accent-color:var(--red);padding:0}
+  .ok{background:#dff3e6;color:#17663d;border-radius:14px;padding:16px 20px;font-weight:600}
+
+  /* gallery */
+  .gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px}
+  .gal .art{height:100%;border-radius:14px}
+  .gal .art:nth-child(5n+1){grid-row:span 2}
+  .gal .art:nth-child(7n+3){grid-column:span 2}
+
+  /* modal + toast */
+  .modal{position:fixed;inset:0;background:rgba(10,16,30,.6);z-index:60;display:none;place-items:center;padding:20px}
+  .modal.open{display:grid}
+  .modal-box{background:var(--paper);border-radius:22px;max-width:480px;width:100%;padding:30px;position:relative}
+  .modal-box h3{font-size:26px;margin-bottom:8px}
+  .modal-box .x{position:absolute;right:16px;top:16px;width:38px;height:38px;border-radius:50%;border:0;background:var(--soft);font-size:18px}
+  .cal-opts{display:grid;gap:10px;margin-top:20px}
+  .cal-opts button{display:flex;justify-content:space-between;align-items:center;border:1.5px solid var(--line);background:var(--card);border-radius:14px;padding:16px 18px;font-weight:600;text-align:left}
+  .cal-opts button:hover{border-color:var(--ink)}
+  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);opacity:0;background:var(--ink);color:#fff;padding:13px 22px;border-radius:999px;font-size:15px;font-weight:500;z-index:70;transition:.25s;pointer-events:none}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* footer */
+  footer{background:var(--soft);color:var(--muted);padding:72px 0 36px;margin-top:40px}
+  .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px}
+  footer h4{color:var(--ink);font-size:14px;font-weight:600;margin-bottom:14px}
+  footer ul{list-style:none;display:grid;gap:9px;font-size:15px}
+  footer a:hover{color:var(--ink)}
+  .foot-bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:26px;border-top:1px solid var(--line);font-size:13px}
+  .socials{display:flex;gap:10px;margin-top:22px}
+  .socials a{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--ink)}
+  .socials a:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+  /* lösenordsspärr */
+  html.locked body > *:not(#gate){display:none!important}
+  #gate{display:none}
+  html.locked #gate{display:grid;position:fixed;inset:0;place-items:center;background:var(--soft);padding:20px;z-index:100}
+  .gate-box{background:#fff;border:1px solid var(--line);border-radius:24px;padding:40px 32px;width:100%;max-width:400px;text-align:center;box-shadow:0 20px 50px rgba(26,32,48,.08)}
+  .gate-box img{height:72px;margin:0 auto 24px;display:block}
+  .gate-box h1{font-size:26px;margin-bottom:8px}
+  .gate-box p{color:var(--muted);font-size:15px;margin-bottom:24px}
+  .gate-box form{display:grid;gap:12px}
+  .gate-box input{font:inherit;font-size:16px;border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;text-align:center;outline:none}
+  .gate-box input:focus{border-color:var(--blue)}
+  .gate-box .btn{justify-content:center}
+  .gate-err{color:#b3261e;font-size:14px;min-height:20px}
+  .fade{animation:fade .35s ease}
+  @keyframes fade{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+  /* responsive */
+  /* header: surfplatta och mobil */
+  .menu-extra{display:none}
+  @media (max-width:1180px){
+    header{backdrop-filter:none;-webkit-backdrop-filter:none;background:#fff}
+    .burger{display:block}
+    .nav{height:72px}
+    .logo-img{height:42px}
+    .menu{position:fixed;left:0;right:0;top:var(--hdr,72px);bottom:0;z-index:40;background:var(--paper);flex-direction:column;gap:0;padding:8px 28px 40px;overflow-y:auto;-webkit-overflow-scrolling:touch;
+      opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .2s,transform .2s,visibility 0s .2s;font-size:24px;font-family:var(--display);font-weight:600;border-top:1px solid var(--line)}
+    .menu.open{opacity:1;visibility:visible;transform:none;transition:opacity .2s,transform .2s}
+    .menu a{padding:18px 0;border-bottom:1px solid var(--line)!important;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+    .menu a::after{content:"→";color:var(--muted);font-size:20px}
+    .menu a.active{color:var(--blue)}
+    .menu .menu-extra{display:flex;gap:12px;flex-wrap:wrap;padding-top:28px;font-family:var(--body);font-size:16px}
+    .menu .menu-extra a{border:0!important;padding:0}
+    .menu .menu-extra a::after{content:none}
+    .menu .menu-extra .btn{padding:14px 22px}
+    .menu .menu-extra .btn-glow{color:#fff}
+    .menu .menu-extra .btn-ghost{border:1.5px solid var(--line)!important;padding:14px 22px}
+    body.menu-open{overflow:hidden}
+  }
+  @media (min-width:601px) and (max-width:1180px){
+    .menu{padding:16px 48px 48px;display:grid;grid-template-columns:1fr 1fr;column-gap:48px;align-content:start}
+    .menu .menu-extra{grid-column:1/-1}
+  }
+  @media (max-width:600px){
+    .nav-right .btn{display:none}
+    .nav-right{gap:6px}
+  }
+  @media (max-width:1080px){
+    .grid,.cards3{grid-template-columns:repeat(2,1fr)}
+    .dir,.news{grid-template-columns:repeat(2,1fr)}
+    .mapwrap{grid-template-columns:1fr}
+    .foot{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:920px){
+    .hero-grid,.feature-row,.detail-grid,.detail-body,.two-col,.band{grid-template-columns:1fr}
+    .hero-art{min-height:340px}
+    .feature-row .big .art{min-height:320px}
+    .detail-grid .art{min-height:300px}
+    .facts{position:static}
+    .stats{grid-template-columns:1fr 1fr}
+    .stats div:nth-child(3){padding-left:0;border-left:0}
+    .stats div:nth-child(n+3){border-top:1px solid var(--line)}
+    .gal{grid-template-columns:repeat(2,1fr)}
+    section{padding:64px 0}
+    .band{padding:36px 28px}
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 18px}
+    .grid,.cards3,.dir,.news{grid-template-columns:1fr}
+    .f .two{grid-template-columns:1fr}
+    .cell{min-height:64px;padding:4px}
+    .cell .e{font-size:0;height:6px;padding:0;border-radius:3px}
+    .cell .more{font-size:10px}
+    .cal-grid .dow{padding:8px 4px;font-size:10px;letter-spacing:.02em}
+    .search{min-width:0;width:100%}
+    .countdown{padding:8px 12px;gap:12px}
+    .countdown strong{font-size:20px}
+    .foot{grid-template-columns:1fr}
+    .logo{font-size:21px}
+    .saved-btn em{display:none}
+  }
+</style>
+</head>
+<body>
+<script>(function(){var ok=false;try{ok=sessionStorage.getItem("uc-gate")==="1";}catch(e){}if(!ok)document.documentElement.classList.add("locked");})();</script>
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+  <div class="gate-box">
+    <img src="" class="logo-img" alt="Uppsala City">
+    <h1 id="gateTitle">Skiss – Uppsala City</h1>
+    <p>Ange lösenordet för att se förslaget.</p>
+    <form id="gateForm">
+      <label for="gatePw" style="position:absolute;left:-9999px">Lösenord</label>
+      <input id="gatePw" type="password" autocomplete="current-password" placeholder="Lösenord" autofocus>
+      <button class="btn btn-glow" type="submit">Visa skissen</button>
+      <div class="gate-err" id="gateErr" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
+<div class="note">Skiss – förslag på ny webbplats för Uppsala City. Innehållet är hämtat från uppsalacity.se, bilderna är platshållare.</div>
+
+<header>
+  <div class="wrap nav">
+    <a href="#hem" class="logo" aria-label="Uppsala City, startsida"><img src="" class="logo-img" alt="Uppsala City"></a>
+    <nav class="menu" id="menu">
+      <a href="#evenemang" data-p="evenemang">Evenemang</a>
+      <a href="#aktuellt" data-p="aktuellt">Aktuellt</a>
+      <a href="#finns-i-city" data-p="finns-i-city">Finns i city</a>
+      <a href="#besok" data-p="besok">Hitta hit &amp; öppettider</a>
+      <a href="#presentkort" data-p="presentkort">Presentkort</a>
+      <a href="#cityhjalte" data-p="cityhjalte">Cityhjälte</a>
+      <a href="#om-oss" data-p="om-oss">Om oss</a>
+      <div class="menu-extra"><a href="#om-oss" class="btn btn-glow" onclick="setTimeout(()=>document.getElementById('bli-medlem').scrollIntoView(),60)">Bli medlem</a><a href="#sparade" class="btn btn-ghost">♥ Sparade evenemang</a></div>
+    </nav>
+    <div class="nav-right">
+      <button class="saved-btn" onclick="location.hash='sparade'" aria-label="Mina sparade evenemang">♥ <em>Sparade</em> <span id="savedCount">0</span></button>
+      <a href="#om-oss" onclick="setTimeout(()=>document.getElementById('bli-medlem').scrollIntoView(),60)" class="btn btn-glow">Bli medlem</a>
+      <button class="burger" id="burger" type="button" onclick="toggleMenu()" aria-label="Öppna meny" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a href="#hem" class="logo"><img src="" class="logo-img" alt="Uppsala City"></a>
+        <p style="margin-top:16px;max-width:320px;font-size:15px">Tillsammans med näringslivet och våra intressenter möjliggör vi en levande och attraktiv stadskärna för alla.</p><p style="margin-top:14px;font-size:15px">Box 1110, Östra Ågatan 13<br>753 22 Uppsala<br>info@uppsalacity.se</p>
+        <div class="socials"><a href="https://www.facebook.com/uppsalacity" aria-label="Facebook">fb</a><a href="https://www.instagram.com/uppsalacity" aria-label="Instagram">ig</a><a href="https://www.linkedin.com/company/uppsala-city" aria-label="LinkedIn">in</a><a href="https://www.youtube.com/user/uppsalacity" aria-label="YouTube">yt</a></div>
+      </div>
+      <div><h4>Upplev</h4><ul><li><a href="#evenemang">Alla evenemang</a></li><li><a href="#galleri">Eventgalleri &amp; tidigare</a></li><li><a href="#event-jul-i-city">Jul i city</a></li><li><a href="#finns-i-city">Verksamheter &amp; nyöppningar</a></li><li><a href="#cityhjalte">Cityhjälte</a></li><li><a href="#presentkort">Presentkort</a></li></ul></div>
+      <div><h4>Besök</h4><ul><li><a href="#besok">Ta dig till city</a></li><li><a href="#besok">Parkering &amp; söndagskupong</a></li><li><a href="#besok">Öppettider</a></li><li><a href="#aktuellt">Aktuellt</a></li></ul></div>
+      <div><h4>För företag</h4><ul><li><a href="#om-oss">Bli medlem</a></li><li><a href="#arrangera">Ställ ut på julmarknaden</a></li><li><a href="#om-oss">Rapporter &amp; RetailGuide</a></li><li><a href="#om-oss">Stadsutveckling</a></li></ul></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 Uppsala Citysamverkan AB</span><span>Org.nr 556532-8589 · Skiss, ej publicerad webbplats</span></div>
+  </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="modal-box" id="modalBox"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const LOGO='data:image/png;base64,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';
+/* ---------- data (innehåll hämtat från uppsalacity.se, nov 2026) ---------- */
+const CATS = {
+  jul:{n:"Jul",c:"#d63b34"}, ljus:{n:"Ljus & konst",c:"#c26f00"}, marknad:{n:"Marknad & mat",c:"#1f7a57"},
+  musik:{n:"Musik & sång",c:"#7148c9"}, barn:{n:"För barn",c:"#c93d78"}, sport:{n:"Sport",c:"#2557c7"},
+  shopping:{n:"Shopping",c:"#1c7f7f"}, stad:{n:"Staden",c:"#4b5568"}
+};
+const PLACES = {
+  torget:{n:"Stora torget",x:470,y:300}, eriks:{n:"S:t Eriks torg",x:455,y:405}, celsius:{n:"Celsiustorget",x:505,y:205},
+  fyristorg:{n:"Fyristorg",x:250,y:345}, kungsangs:{n:"Kungsängsgatan",x:600,y:470}, vaksala:{n:"Vaksala torg",x:770,y:250},
+  studan:{n:"Studenternas (Studan)",x:300,y:585}, city:{n:"Hela city",x:520,y:360}
+};
+const EVENTS = [
+  {id:"allt-ljus",t:"Allt ljus på Uppsala",c:"ljus",start:"2026-11-06",end:"2026-11-22",time:"13 ljusverk",p:"city",price:"Gratis",feat:true,kids:true,
+   org:"Uppsala City, Uppsala kommun och Destination Uppsala",link:["alltljuspauppsala.se","https://alltljuspauppsala.se/"],
+   s:"Tretton ljusverk av internationella konstnärer lyser upp stadskärnan i tre veckor. Årets tema: Mod. Tålamod.",
+   d:"Festivalen invigdes på Vaksala torg där publiken räknade ner och tryckte på en stor röd knapp som tände verket To Those Who Wait, som gör fasaden på Uppsala Konsert & Kongress till en interaktiv spelplan. Partnern Cube of Art visar ett specialgjort ljusverk i sina lokaler i Juvelen. Varje år har festivalen ett tema kopplat till Agenda 2030.",
+   prog:[["6 nov 15:50","Invigning på Vaksala torg – To Those Who Wait tänds"],["6–22 nov","13 ljusverk runt om i city, bland annat Fifth Element och Divine Geometry"],["22 nov","Sista kvällen"]]},
+  {id:"blasvart",t:"Uppsala city är blåsvart",c:"sport",start:"2026-11-22",time:"Avspark 14:00",p:"studan",price:"Biljett till matchen",
+   org:"Uppsala City",link:["Sirius Fotboll","https://www.siriusfotboll.se/"],
+   s:"På matchdag klär city sig i blått och svart. IK Sirius möter Djurgården på Studan.",
+   d:"När IK Sirius spelar hemma på Studan pyntar verksamheterna i city med ballonger, affischer och halsdukar för att stärka den blåsvarta andan. Heja på laget tillsammans!",
+   prog:[["Matchdag","Butiker och restauranger i city pyntar blåsvart"],["14:00","IK Sirius – Djurgården på Studenternas"]]},
+  {id:"skattjakt",t:"Digital skattjakt med Musse & Helium",c:"barn",start:"2026-11-27",end:"2026-12-23",time:"Hela dagen",p:"city",price:"Gratis",kids:true,
+   org:"Uppsala City",link:["Läs mer","https://uppsalacity.se/musse-helium-digital-skattjakt-i-jul/"],
+   s:"Använd mobilen som guide och leta ledtrådar till fem gömda skatter i city.",
+   d:"Hitta alla fem skatterna så låser du upp erbjudanden hos verksamheter i city. Passar hela familjen under julhandeln."},
+  {id:"brandvarnardagen",t:"Brandvarnardagen & julmys",c:"barn",start:"2026-11-29",time:"13–17",p:"torget",price:"Gratis",kids:true,
+   org:"Uppsala City och Brandförsvaret",
+   s:"Brandmännen delar tips om brandsäkerhet hemma, och brandbilarna står på torget.",
+   d:"Träffa lokala brandmän och få tips inför advent. Observera att besöket kan avbrytas om besättningen får ett larm.",
+   prog:[["13:00","Brandbilar och brandmän på Stora torget"],["17:00","Slut för dagen"]]},
+  {id:"julskyltstavling",t:"Julskyltstävling 2026",c:"jul",start:"2026-11-29",end:"2026-12-13",time:"Rösta online",p:"city",price:"Gratis",
+   org:"Uppsala City",link:["Läs mer","https://uppsalacity.se/julskyltstavling/"],
+   s:"Rösta på det finaste julskyltfönstret i city – och chansa på att vinna presentkort.",
+   d:"Omröstningen öppnar 29 november kl 10:00 och stänger 13 december kl 23:59. Ta en promenad genom city, titta på skyltfönstren och rösta på din favorit."},
+  {id:"julklappstips",t:"Julklappstips från city",c:"shopping",start:"2026-11-30",end:"2026-12-20",time:"Vecka 49–51",p:"city",price:"Gratis",
+   org:"Deltagande verksamheter",link:["Läs mer","https://uppsalacity.se/julklappstips/"],
+   s:"Verksamheterna i city visar sina bästa julklappsidéer. Nya tips varje måndag.",
+   d:"Under vecka 49–51 lyfter deltagande butiker fram julklappstips. Produkterna byts ut varje måndag."},
+  {id:"jul-i-city",t:"Jul i Uppsala city",c:"jul",start:"2026-12-01",end:"2026-12-24",time:"Hela december",p:"city",price:"Gratis",feat:true,kids:true,
+   org:"Uppsala City",link:["Läs mer","https://uppsalacity.se/jul-i-city/"],
+   s:"Körsång varje dag, julmarknad, tomten på Celsiustorget och vinterbelysning i hela city.",
+   d:"Julen i city samlar allt på ett ställe: julig körsång på fyra platser varje dag, Uppsala Historiska Julmarknad, tomtebesök, julklappshögen och julskyltstävlingen. Året runt finns Tomtetronen på Celsiustorget med en magisk brevlåda där barnen kan skicka brev till tomten, och en fotoplats där du kan ta din julbild. Tagga @uppsalacity!",
+   prog:[["27 nov – 23 dec","Digital skattjakt med Musse & Helium"],["29 nov","Brandvarnardagen på Stora torget"],["5–6 dec","Uppsala Historiska Julmarknad"],["11 dec","Träffa tomten och tomtemor"],["15 dec","Julklappshögen"]]},
+  {id:"korsang",t:"Julig körsång i city",c:"musik",start:"2026-12-01",end:"2026-12-23",time:"Dagligen",p:"torget",price:"Gratis",kids:true,
+   org:"Uppsala City",link:["Hela schemat","https://uppsalacity.se/julig-korsang/"],
+   s:"Kören sjunger på fyra platser i city varje dag fram till jul.",
+   d:"Kören vandrar mellan Kungsängsgatan, Stora torget, Celsiustorget och Fyristorg. På vardagar sjunger de på kvällen efter jobbet och på helgerna mitt på dagen.",
+   prog:[["Vardagar 17:00","Kungsängstrappan (Polarn & Pyret)"],["Vardagar 17:30","Stora torget vid julgranen"],["Vardagar 18:00","Celsiustorget vid Tomtetronen"],["Vardagar 18:30","Fyristorg vid Boken"],["Helger 12:00","Celsiustorget"],["Helger 12:30","Stora torget"],["Helger 13:00","Kungsängsgatan"],["Helger 13:30","Fyristorg"]]},
+  {id:"historiska-julmarknad",t:"Uppsala Historiska Julmarknad",c:"marknad",start:"2026-12-05",end:"2026-12-06",time:"10–18",p:"eriks",price:"Fri entré",feat:true,kids:true,
+   org:"Uppsala Citysamverkan, Destination Uppsala och Uppsala kommun",link:["Läs mer","https://uppsalacity.se/uppsala-historiska-julmarknad/"],
+   s:"Lokalt hantverk, julklappar, mat och dryck på Vintertorget i Uppsalas historiska centrum.",
+   d:"Marknaden samlar hantverkare, matproducenter och gårdsbutiker med unikt hantverk, hemlagade delikatesser och lokala produkter. Dessutom körsång och julpyssel för barnen.",
+   prog:[["10:00","Marknaden öppnar båda dagarna"],["Under dagen","Körsång och julpyssel"],["18:00","Marknaden stänger"]]},
+  {id:"tomten",t:"Träffa tomten och tomtemor",c:"barn",start:"2026-12-11",time:"15–18",p:"celsius",price:"Gratis",kids:true,
+   org:"Uppsala City",link:["Fler datum","https://uppsalacity.se/traffa-tomten/"],
+   s:"Lämna önskelistan och ta en bild med tomten vid Tomtetronen.",
+   d:"Tomten och tomtemor finns vid Tomtetronen på Celsiustorget. Barnen kan lämna sina önskelistor och det går bra att fota sig med tomten."},
+  {id:"julklappshogen",t:"Julklappshögen",c:"jul",start:"2026-12-15",time:"17:00",p:"celsius",price:"100 kr per paket",kids:true,
+   org:"Uppsala City",link:["Läs mer","https://uppsalacity.se/julklappshogen/"],
+   s:"Köp ett julklappspaket för 100 kr med innehåll värt 150–1 000 kr. Allt går till Lekterapin.",
+   d:"Ett paket per person så långt lagret räcker. Hela intäkten går till Lekterapin på Akademiska sjukhuset – förra året samlades 20 000 kr in. Tomten hjälper till och det bjuds på glögg och pepparkakor.",
+   prog:[["17:00","Försäljningen startar på Celsiustorget"]]},
+  {id:"stadens-galleri",t:"Stadens Galleri – konst på elskåp",c:"ljus",start:"2025-06-01",end:"2027-12-31",time:"Dygnet runt",p:"city",price:"Gratis",always:true,
+   org:"Uppsala City (Uppsala Art Square)",link:["Karta över elskåpen","https://www.google.com/maps/d/u/0/viewer?mid=17FuJ964BETTf0yuq-h75Iov8TpdF2fE"],
+   s:"53 elskåp i city har blivit konst av lokala konstnärer och illustratörer.",
+   d:"Projektet ger lokala konstnärer en ny scen, gör stadskärnan mer levande och trygg och minskar klotter. Etapp ett gjordes 2025 och etapp två 2026. Bland konstnärerna finns Zahra Medzeta, Shirin Khalil, Fredrik Hardenborg, Jesper Holm och Ebba Lundell. I samarbete med fastighetsägare, bostadsrättsföreningar, Uppsala kommun, Uppsala Vatten, Vattenfall, Uppsala parkering och Tidtryck."},
+  // tidigare i år (kalendarium 2026)
+  ...[["alla-hjartans","Alla hjärtans dag","shopping","2026-02-14"],["fettisdagen","Fettisdagen","marknad","2026-02-17"],["pask","Påsk i city","barn","2026-03-30","2026-04-06"],
+      ["varsang","Vårsång i city","musik","2026-04-07","2026-04-10"],["valborg","Valborg","stad","2026-04-30"],["favoritkatter","Sjung med Uppsalas favoritkatter","musik","2026-05-09"],
+      ["sommarslapp","Sommarsläpp","stad","2026-05-30"],["student","Studentfirande","stad","2026-06-05"],["nationaldag","Nationaldagen","stad","2026-06-06"],
+      ["antik1","Antikvärdering med Peder Lamm","stad","2026-06-12"],["antik2","Antikvärdering med Peder Lamm","stad","2026-06-27"],["gaming","Gaming för alla","barn","2026-08-22"],
+      ["kulturnatten","Kulturnatten","musik","2026-09-12"],["beredskap","En dag av Beredskapsveckan","stad","2026-09-26"],["halloween","Halloween i city","barn","2026-10-24","2026-11-01"]]
+    .map(([id,t,c,start,end])=>({id,t,c,start,end,time:"",p:"city",price:"",org:"Uppsala City",s:"Ett av årets evenemang i Uppsala city.",d:"Evenemanget har redan ägt rum. Bilder finns i eventgalleriet.",past:true}))
+];
+const PAST_GALLERY = ["Halloween i city 2026","Kulturnatten 2026","Allt ljus på Uppsala 2026","Julklappstips","Uppsala Art Square","Cube of Art","MovEat","Owe Törnqvist"];
+const NEWS = [
+  {d:"2026-09-15",t:"Stadens Galleri – foliering av elskåp",s:"53 elskåp i city har fått nya konstverk.",h:"#event-stadens-galleri"},
+  {d:"2026-09-03",t:"Uppsala city är blåsvart",s:"City pyntar när Sirius spelar hemma på Studan.",h:"#event-blasvart"},
+  {d:"2026-01-08",t:"Parkeringskupong 2026",s:"Hämta årets kupong i ett parkeringsgarage eller hos en verksamhet i city.",h:"#besok"},
+  {d:"2025-07-03",t:"Parkeringskarta 2026",s:"Uppsala parkering har uppdaterat kartan över parkering i centrum.",h:"#besok"},
+  {d:"2025-05-04",t:"RetailGuide",s:"Uppsala – ett av Europas starkaste utvecklingsområden, med 237 000 invånare.",h:"#om-oss"},
+  {d:"2025-05-01",t:"Vägarbeten",s:"Ta dig fram i ett växande Uppsala.",h:"#besok"}
+];
+const BIZCATS = {shop:["Shopping & Service","#2557c7"],mat:["Äta & Dricka","#1f7a57"],hotell:["Hotell & Företag","#7148c9"]};
+const BIZ = [
+  ["H&M","shop"],["Clas Ohlson","shop"],["Lush","shop"],["Apoteket","shop"],["Systembolaget","shop"],["Pressbyrån","shop"],["Sko August","shop"],["Mento Home","shop"],["Svart inredning","shop"],["Tehörnan","shop"],["Hemtex","shop"],["Rockeponken","shop"],["Carl Frisör","shop"],["Estetica Frisör","shop"],["Ica City","shop"],["Fleur de Lis Florist","shop",1],["Member 24","shop",1,"Kungsgatan 35"],
+  ["Café Carl von Linné","mat"],["Güntherska Hovkonditori","mat"],["Landings Konditori","mat"],["Forsa Hembageri","mat"],["Café Årummet","mat"],["Centralkonditoriet","mat"],["Bastard Burger","mat"],["Lilla Japan","mat"],["Celestelle","mat",1],["Svintorget","mat",1],["German Beerhall","mat",1,"Stora torget"],["Mocca Deli","mat",1],["Fluffy House","mat",1],["Mister York","mat",1,"Stora torget"],["Beer Monkey","mat",1],["Ölstugan Tullen","mat",1,"S:t Olofsgatan/Dragarbrunnsgatan"],["Burger King","mat",1,"S:t Pergallerian"],
+  ["Radisson Blu","hotell"],["Home Hotel Uppsala","hotell"],["Tullhuset SPA","hotell"],["Selma City Spa","hotell"],["Telia","hotell"],["Uppsala parkering","hotell"]
+].map(([n,c,nw,g])=>({n,c,nw,g}));
+const GARAGES = [
+  ["Centralgaraget","350 platser · 36 kr/h dagtid, 9 kr/h kväll · max 220 kr/dygn"],
+  ["Kvarnengaraget","06:30–23:30 · 30 kr/h · max 220 kr/dag"],
+  ["S:t Pergaraget","Dragarbrunnsgatan 21 · söndagstaxa 11–18: 30 kr/h"],
+  ["Svava garaget","Dragarbrunnsgatan 52 · mån–lör 06–24, sön 09–24"],
+  ["Grimhild P-garage","06–24 · 14 kr/påbörjad kvart · helg 11–18: 15 kr/h"],
+  ["Plus P-garage","Dragarbrunnsgatan 49 · 35 kr/påbörjad halvtimme"],
+  ["Badhusgaraget","25 kr/20 min · max 180 kr/dag"],
+  ["Stationsgatan 40","06–22 · 16 kr/påbörjad kvart"],
+  ["S:t Erikstorg (utomhus)","20 kr/h första 2 h · kväll 5 kr/h · max 4 h"],
+  ["Norra Hovstallängen (utomhus)","180 bilplatser + 20 husbilsplatser · 10 kr/h dagtid"]
+];
+
+/* ---------- helpers ---------- */
+const MON = ["jan","feb","mar","apr","maj","jun","jul","aug","sep","okt","nov","dec"];
+const MONL = ["januari","februari","mars","april","maj","juni","juli","augusti","september","oktober","november","december"];
+const DOW = ["sön","mån","tis","ons","tor","fre","lör"];
+const D = s => { const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d); };
+const ymd = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+const TODAY = (()=>{const n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate());})();
+const addDays = (d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x;};
+const evById = id => EVENTS.find(e=>e.id===id);
+function onDay(e,d){ const k=ymd(d); if(e.dates) return e.dates.includes(k); return k>=e.start && k<=(e.end||e.start); }
+function firstDate(e){ return e.dates ? D(e.dates.find(x=>x>=ymd(TODAY))||e.dates[e.dates.length-1]) : D(e.start); }
+function lastDate(e){ return e.dates ? D(e.dates[e.dates.length-1]) : D(e.end||e.start); }
+function isUpcoming(e){ return lastDate(e) >= TODAY; }
+function nextOcc(e){ const s=firstDate(e); return s<TODAY && lastDate(e)>=TODAY ? TODAY : s; }
+function inRange(e,a,b){ for(let d=new Date(a); d<=b; d=addDays(d,1)) if(onDay(e,d)) return true; return false; }
+function dateLabel(e){
+  if(e.always) return "Året runt";
+  if(e.dates) return e.dates.map(x=>D(x).getDate()).join(", ")+" "+MON[D(e.dates[0]).getMonth()];
+  const s=D(e.start), en=e.end?D(e.end):null;
+  if(!en) return `${DOW[s.getDay()]} ${s.getDate()} ${MONL[s.getMonth()]}`;
+  return `${s.getDate()} ${MON[s.getMonth()]} – ${en.getDate()} ${MON[en.getMonth()]}`;
+}
+function badge(e){
+  if(e.always) return `<div class="date-badge range"><small>Pågår</small><strong>Året<br>runt</strong></div>`;
+  const n=nextOcc(e), ongoing = !e.dates && e.end && D(e.start)<=TODAY && lastDate(e)>=TODAY;
+  if(ongoing) return `<div class="date-badge range"><small>Pågår</small><strong>t.o.m.<br>${D(e.end).getDate()} ${MON[D(e.end).getMonth()]}</strong></div>`;
+  return `<div class="date-badge"><small>${MON[n.getMonth()]}</small><strong>${n.getDate()}</strong></div>`;
+}
+const sorted = list => [...list].sort((a,b)=>(!!a.always-!!b.always)||(nextOcc(a)-nextOcc(b)));
+const upcoming = () => sorted(EVENTS.filter(e=>!e.past&&isUpcoming(e)));
+let bizNewOnly = false;
+
+/* saved */
+let SAVED = []; try{ SAVED = JSON.parse(localStorage.getItem("uc-saved")||"[]"); }catch(e){}
+function saveToggle(id,btn){
+  SAVED = SAVED.includes(id) ? SAVED.filter(x=>x!==id) : [...SAVED,id];
+  try{ localStorage.setItem("uc-saved",JSON.stringify(SAVED)); }catch(e){}
+  document.querySelectorAll(`.heart[data-id="${id}"]`).forEach(b=>b.classList.toggle("on",SAVED.includes(id)));
+  document.getElementById("savedCount").textContent = SAVED.length;
+  toast(SAVED.includes(id) ? "Sparat i dina evenemang" : "Borttaget från sparade");
+}
+function toast(t){ const el=document.getElementById("toast"); el.textContent=t; el.classList.add("show"); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove("show"),2200); }
+
+/* ---------- generative art ---------- */
+function rng(seed){ let s=0; for(const ch of seed) s=(s*31+ch.charCodeAt(0))>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+const PAL = {
+  ljus:["#fff4e0","#fbd9a6",["#ffffff","#ffc35c","#ffe3b0","#ffd38a"]],
+  jul:["#fde9e4","#f6c2b8",["#ffffff","#ffd27a","#e2483c","#ffe9d6"]],
+  marknad:["#e9f4ee","#c4e2d1",["#ffffff","#ffd27a","#9fd3b8","#ffe9b8"]],
+  musik:["#efeafb","#d6cbf4",["#ffffff","#b9a2f0","#ffd27a","#e7defc"]],
+  barn:["#fdeaf2","#f7c6da",["#ffffff","#ffd27a","#f39bbf","#fff0f6"]],
+  sport:["#e8effc","#c4d5f5",["#ffffff","#7fa3ea","#2557c7","#ffd27a"]],
+  shopping:["#e4f4f3","#bfe3e0",["#ffffff","#7cc9c2","#ffd27a","#eafaf8"]],
+  stad:["#eef0f4","#d3d8e2",["#ffffff","#ffd27a","#aab3c5","#f4f6fa"]]
+};
+function art(kind,seed,cap,extraCls=""){ return `<div class="art ${extraCls}" data-art="${kind}" data-seed="${seed}">${cap?`<span class="cap">${cap}</span>`:""}<canvas></canvas></div>`; }
+function paintArt(root){
+  root.querySelectorAll(".art[data-art]").forEach(el=>{
+    const cv=el.querySelector("canvas"); const r=el.getBoundingClientRect(); if(!r.width) return;
+    const dpr=Math.min(2,window.devicePixelRatio||1); cv.width=r.width*dpr; cv.height=r.height*dpr;
+    const g=cv.getContext("2d"); g.scale(dpr,dpr); const W=r.width,H=r.height;
+    const [a,b,cols]=PAL[el.dataset.art]||PAL.stad; const R=rng(el.dataset.seed||"x");
+    const bg=g.createLinearGradient(0,0,W*.4,H); bg.addColorStop(0,a); bg.addColorStop(1,b); g.fillStyle=bg; g.fillRect(0,0,W,H);
+    // skyline silhouette
+    g.fillStyle="rgba(26,32,48,.10)"; let x=0; g.beginPath(); g.moveTo(0,H);
+    while(x<W){ const w=20+R()*60, h=H*(.12+R()*.22); g.lineTo(x,H-h); g.lineTo(x+w,H-h); x+=w; }
+    // cathedral spires
+    const cx=W*(.55+R()*.25); g.lineTo(W,H); g.closePath(); g.fill();
+    g.beginPath(); [cx-14,cx+14].forEach(sx=>{g.moveTo(sx-9,H-H*.3);g.lineTo(sx,H-H*.62);g.lineTo(sx+9,H-H*.3);}); g.fill(); g.fillRect(cx-23,H-H*.31,46,H*.31);
+    // bokeh
+    const n=Math.round((W*H)/2600);
+    for(let i=0;i<n;i++){
+      const px=R()*W, py=R()*H*.85, rad=2+Math.pow(R(),3)*Math.min(W,H)*.09, col=cols[Math.floor(R()*cols.length)];
+      const gr=g.createRadialGradient(px,py,0,px,py,rad); gr.addColorStop(0,col); gr.addColorStop(1,"rgba(0,0,0,0)");
+      g.globalAlpha=.25+R()*.55; g.fillStyle=gr; g.beginPath(); g.arc(px,py,rad,0,7); g.fill();
+    }
+    g.globalAlpha=1;
+    // string lights
+    if(["jul","marknad","ljus","shopping"].includes(el.dataset.art)){
+      for(let s=0;s<2;s++){ const y0=H*(.12+s*.16+R()*.05), sag=H*.08;
+        g.strokeStyle="rgba(26,32,48,.15)"; g.lineWidth=1; g.beginPath();
+        for(let t=0;t<=1.001;t+=.02){ const xx=t*W, yy=y0+Math.sin(t*Math.PI)*sag; t===0?g.moveTo(xx,yy):g.lineTo(xx,yy);} g.stroke();
+        for(let t=.03;t<1;t+=.045){ const xx=t*W, yy=y0+Math.sin(t*Math.PI)*sag+3; const gr=g.createRadialGradient(xx,yy,0,xx,yy,7); gr.addColorStop(0,"#fff3c4"); gr.addColorStop(.4,"#ffb43c"); gr.addColorStop(1,"rgba(255,180,60,0)"); g.fillStyle=gr; g.beginPath(); g.arc(xx,yy,7,0,7); g.fill(); }
+      }
+    }
+  });
+}
+
+/* ---------- components ---------- */
+const heartSvg = `<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.4.7-1.2 2.2-2.4 4.3-2.4 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg>`;
+const heart = e => `<button class="heart ${SAVED.includes(e.id)?"on":""}" data-id="${e.id}" aria-label="Spara ${e.t}" onclick="event.preventDefault();event.stopPropagation();saveToggle('${e.id}',this)">${heartSvg}</button>`;
+const catTag = e => `<span class="tag cat" style="background:${CATS[e.c].c}">${CATS[e.c].n}</span>`;
+function card(e){
+  return `<a class="ev" href="#event-${e.id}">${badge(e)}${heart(e)}${art(e.c,e.id)}
+    <div class="tags">${catTag(e)}${/Gratis|Fri entré/.test(e.price)?`<span class="tag free">${e.price}</span>`:""}${e.kids?`<span class="tag">Barnvänligt</span>`:""}</div>
+    <h3>${e.t}</h3><p>${e.s}</p><div class="where">${[dateLabel(e),e.time,PLACES[e.p].n].filter(Boolean).join(" · ")}</div></a>`;
+}
+function mini(e){ return `<a class="mini" href="#event-${e.id}">${art(e.c,e.id+"m")}<div><small>${dateLabel(e)}</small><h3>${e.t}</h3><p>${[PLACES[e.p].n,e.time].filter(Boolean).join(" · ")}</p></div></a>`; }
+
+function mapSvg(highlight){
+  const pins = Object.entries(PLACES).filter(([k])=>k!=="city").map(([k,p])=>{
+    const evs = upcoming().filter(e=>e.p===k); const hot = highlight ? k===highlight : evs.length>0;
+    return `<g class="pin" data-place="${k}" tabindex="0" role="button" aria-label="${p.n}, ${evs.length} evenemang">
+      ${hot?`<circle class="halo" cx="${p.x}" cy="${p.y}" r="16" fill="#0071bc"/>`:""}
+      <circle cx="${p.x}" cy="${p.y}" r="${hot?11:7}" fill="${hot?"#0071bc":"#b4bccb"}" stroke="#ffffff" stroke-width="3"/>
+      <text x="${p.x+16}" y="${p.y+5}" fill="#1a2030" paint-order="stroke" stroke="#eef1f4" stroke-width="4" font-family="Figtree" font-size="15" font-weight="600">${p.n}${evs.length?` · ${evs.length}`:""}</text></g>`;
+  }).join("");
+  return `<svg viewBox="0 0 960 640" preserveAspectRatio="xMidYMid slice" aria-label="Karta över Uppsala city">
+    <rect width="960" height="640" fill="#eef1f4"/>
+    <g stroke="#ffffff" stroke-width="14" stroke-linecap="round" fill="none">
+      <path d="M80 300 H900"/><path d="M120 200 H880"/><path d="M160 420 H860"/><path d="M200 520 H760"/>
+      <path d="M480 40 V620"/><path d="M620 60 V600"/><path d="M760 80 V560"/><path d="M260 80 V600"/>
+    </g>
+    <g stroke="#ffffff" stroke-width="6" fill="none"><path d="M540 120 V560"/><path d="M700 140 V520"/><path d="M120 360 H880"/><path d="M160 250 H860"/></g>
+    <path d="M330 -10 C 360 120, 420 180, 400 300 S 340 470, 380 560 S 420 640, 410 660" stroke="#bcd6f2" stroke-width="26" fill="none" stroke-linecap="round"/>
+    <text x="352" y="150" fill="#5b84b8" font-family="Figtree" font-size="13" font-style="italic" transform="rotate(70 352 150)">Fyrisån</text>
+    <rect x="820" y="40" width="110" height="34" rx="17" fill="#ffffff"/><text x="875" y="62" text-anchor="middle" fill="#6a707c" font-family="Figtree" font-size="13">Centralen →</text>
+    ${pins}
+  </svg>`;
+}
+
+/* ---------- pages ---------- */
+let heroIdx = 0, heroTimer = null;
+function heroSlides(){ return upcoming().filter(e=>e.feat).slice(0,3); }
+function heroHtml(){
+  const e = heroSlides()[heroIdx] || upcoming()[0];
+  return `<div class="hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">${D(e.start)<=TODAY && !e.dates ? "Pågår just nu" : "Nästa stora evenemang"}</span>
+      <h1>${e.t}</h1>
+      <p>${e.s}</p>
+      <div class="hero-actions" style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#event-${e.id}" class="btn btn-glow">${e.prog?"Läs mer och se program":"Läs mer"} →</a>
+        <a href="#evenemang" class="btn btn-ghost">Alla evenemang</a>
+      </div>
+      <div class="hero-meta">${[dateLabel(e),e.time,PLACES[e.p].n].filter(Boolean).map(x=>`<span>${x}</span>`).join("")}</div>
+      <div class="slide-dots">${heroSlides().map((_,i)=>`<button class="${i===heroIdx?"on":""}" aria-label="Visa evenemang ${i+1}" onclick="goHero(${i})"></button>`).join("")}</div>
+    </div>
+    <div style="position:relative">${art(e.c,e.id+"hero","Bildplatshållare – eventfoto","hero-art")}${countdownHtml(e)}</div>
+  </div>`;
+}
+function countdownHtml(e){
+  const start=nextOcc(e); if(start<=TODAY && !e.dates) return `<div class="countdown"><div><strong>Nu</strong><small>pågår</small></div></div>`;
+  const diff=Math.max(0,start-new Date()); const dd=Math.floor(diff/864e5), hh=Math.floor(diff/36e5)%24, mm=Math.floor(diff/6e4)%60;
+  return `<div class="countdown" aria-label="Nedräkning"><div><strong>${dd}</strong><small>dagar</small></div><div><strong>${hh}</strong><small>tim</small></div><div><strong>${mm}</strong><small>min</small></div></div>`;
+}
+function goHero(i){ heroIdx=i; const h=document.getElementById("heroBox"); if(!h) return; h.innerHTML=heroHtml(); paintArt(h); restartHero(); }
+function restartHero(){ clearInterval(heroTimer); if(window.matchMedia("(prefers-reduced-motion:reduce)").matches) return; heroTimer=setInterval(()=>{ if(!document.getElementById("heroBox")) return clearInterval(heroTimer); goHero((heroIdx+1)%heroSlides().length); },7000); }
+
+let stripSel = null;
+function stripHtml(){
+  return Array.from({length:21},(_,i)=>{ const d=addDays(TODAY,i); const evs=EVENTS.filter(e=>!e.always&&onDay(e,d));
+    return `<button class="day ${i===0?"today":""} ${stripSel===ymd(d)?"on":""}" data-d="${ymd(d)}"><small>${DOW[d.getDay()]}</small><strong>${d.getDate()}</strong><small>${MON[d.getMonth()]}</small><em>${evs.slice(0,4).map(e=>`<i style="background:${CATS[e.c].c}"></i>`).join("")}</em></button>`;}).join("");
+}
+function stripList(){
+  const list = stripSel ? sorted(EVENTS.filter(e=>onDay(e,D(stripSel)))) : upcoming().slice(0,6);
+  return list.length ? list.map(card).join("") : `<div class="empty">Inga evenemang den här dagen ännu. Butikerna och restaurangerna i city har öppet som vanligt.</div>`;
+}
+
+const JULTIDER = [["Lör 19 dec","10–18"],["Sön 20 dec","10–18"],["22–23 dec","10–19"],["Julafton & juldagen","Stängt"],["Annandag jul","10–17"],["Nyårsafton","10–15"],["Nyårsdagen","Stängt"]];
+const pages = {
+"": () => `
+  <div class="night"><section class="hero"><div class="wrap">
+    <div id="heroBox">${heroHtml()}</div>
+    <div class="quick"><span>Jag vill hitta:</span>
+      <a class="chip" href="#evenemang" onclick="preset={when:'idag'}">Något idag</a>
+      <a class="chip" href="#evenemang" onclick="preset={when:'helg'}">I helgen</a>
+      <a class="chip" href="#evenemang" onclick="preset={kids:true}">För barn</a>
+      ${["jul","ljus","marknad","musik"].map(k=>`<a class="chip" href="#evenemang" onclick="preset={cat:'${k}'}"><i style="background:${CATS[k].c}"></i>${CATS[k].n}</a>`).join("")}
+    </div>
+  </div></section></div>
+
+  <section><div class="wrap">
+    <div class="row-head"><div><span class="eyebrow">Kalender</span><h2>Vad händer i city?</h2></div><a href="#evenemang" class="link">Visa hela kalendern</a></div>
+    <div class="strip" id="strip">${stripHtml()}</div>
+    <div class="grid" id="stripList">${stripList()}</div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap feature-row">
+    ${(()=>{const e=evById("jul-i-city");return `<a class="ev big" href="#event-${e.id}" style="position:relative">${badge(e)}${heart(e)}${art(e.c,"bigjul","Bildplatshållare – julen i city")}</a>`;})()}
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:24px">
+      <div><span class="eyebrow">Jul i Uppsala city</span><h2>Julen börjar mitt i stan</h2><p class="muted" style="margin-top:14px;font-size:17px;max-width:470px">Körsång varje dag, historisk julmarknad, tomten på Celsiustorget och julklappshögen till förmån för Lekterapin.</p></div>
+      <div class="stack">${["historiska-julmarknad","korsang","tomten","julklappshogen"].map(evById).filter(isUpcoming).map(mini).join("")}</div>
+      <a href="#event-jul-i-city" class="link" style="align-self:flex-start">Allt om julen i city</a>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap two-col">
+    <div class="icard" style="padding:36px">
+      <span class="num">Året runt</span><h3 style="font-size:26px">Tomtetronen på Celsiustorget</h3>
+      <p style="margin-top:10px">Här finns en magisk brevlåda där barnen kan skicka brev till tomten, och en fotoplats för julbilden. Tagga @uppsalacity så kan din bild synas hos oss. Vinterbelysningen lyser upp gator, torg och parker när det blir mörkt.</p>
+    </div>
+    <div class="icard" style="padding:36px">
+      <span class="num">Öppettider i jul</span>
+      <table class="hours">${JULTIDER.map(([a,b])=>`<tr><td>${a}</td><td>${b}</td></tr>`).join("")}</table>
+      <a href="#besok" class="link" style="display:inline-block;margin-top:18px">Alla öppettider</a>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="row-head"><div><span class="eyebrow">Karta</span><h2>Hitta rätt i city</h2></div><p class="muted" style="max-width:380px">Klicka på en plats för att se vad som händer där.</p></div>
+    <div class="mapwrap"><div class="map" id="map">${mapSvg()}</div><div class="map-panel" id="mapPanel">${mapPanel("celsius")}</div></div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="stats">
+      <div><strong>300+</strong><span>verksamheter där Uppsala City Presentkort gäller</span></div>
+      <div><strong>53</strong><span>elskåp har blivit konst i Stadens Galleri</span></div>
+      <div><strong>237 000</strong><span>invånare i Uppsala kommun enligt RetailGuide</span></div>
+      <div><strong>1996</strong><span>året Uppsala Citysamverkan grundades</span></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="band glow">
+      <div><span class="eyebrow">Presentkort</span><h2>Ge bort hela city</h2><p>Gäller i över 300 butiker, restauranger, kaféer, hotell och salonger. Köp det på Pressbyrån i city, ICA Kvantum Gränby eller ICA Maxi.</p></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end"><a href="#presentkort" class="btn btn-dark">Så funkar presentkortet →</a></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap two-col" style="align-items:center">
+    <div><span class="eyebrow">Cityhjälte</span><h2>Alla kan vara en Cityhjälte</h2><p class="muted" style="margin-top:14px;font-size:17px;max-width:480px">När du handlar, äter, sover över eller klipper dig i city håller du stadskärnan levande. Tack alla Cityhjältar!</p>
+      <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap"><a href="#cityhjalte" class="btn btn-glow">Tips från city →</a></div></div>
+    ${art("stad","cityhjalte","Bildplatshållare – Stötta lokala favoriter","r43")}
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="row-head"><div><span class="eyebrow">Aktuellt</span><h2>Senaste nytt</h2></div><a href="#aktuellt" class="link">Alla nyheter</a></div>
+    <div class="news">${newsHtml(4)}</div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="row-head"><div><span class="eyebrow">Instaflöde</span><h2>@uppsalacity</h2></div><a href="https://www.instagram.com/uppsalacity/" class="link">Följ oss på Instagram</a></div>
+    <div class="gal insta">${Array.from({length:8},(_,i)=>art(Object.keys(CATS)[i%8],"ig"+i,"Instagram-bild")).join("")}</div>
+  </div></section>
+
+  ${newsletter()}`,
+
+"evenemang": () => `
+  <div class="night"><div class="page-head"><div class="wrap"><div class="crumbs"><a href="#hem">Hem</a> / Evenemang</div><h1>Evenemang i Uppsala city</h1><p class="lead">Ljusfestival, julmarknad, körsång och aktiviteter för barn. Filtrera på när, vad och för vem.</p></div></div></div>
+  <section style="padding-top:44px"><div class="wrap">
+    <div class="toolbar">
+      <div class="seg" id="viewSeg"><button data-v="lista" class="${evState.view==="lista"?"on":""}">Lista</button><button data-v="kalender" class="${evState.view==="kalender"?"on":""}">Kalender</button></div>
+      <label class="search" for="evSearch"><span aria-hidden="true">⌕</span><input id="evSearch" placeholder="Sök evenemang, plats…" value="${evState.q}"></label>
+    </div>
+    <div class="filters" id="whenF">${[["alla","Alla datum"],["idag","Idag"],["helg","I helgen"],["vecka","Kommande 7 dagar"],["manad","Denna månad"]].map(([k,n])=>`<button class="chip ${evState.when===k?"on":""}" data-w="${k}">${n}</button>`).join("")}
+      <span style="width:1px;background:var(--line);margin:0 6px"></span>
+      ${Object.entries(CATS).map(([k,c])=>`<button class="chip ${evState.cat===k?"on":""}" data-c="${k}"><i style="background:${c.c}"></i>${c.n}</button>`).join("")}
+      <button class="chip ${evState.kids?"on":""}" data-k="1">Barnvänligt</button>
+    </div>
+    <div id="evOut"></div>
+    <div class="cards3" style="margin-top:72px">
+      <a class="icard" href="#galleri"><span class="num">Tidigare</span><h3>Tidigare evenemang &amp; galleri</h3><p>Bilder och minnen från årets evenemang i city.</p></a>
+      <a class="icard" href="https://uppsalacity.se/kalendarium/"><span class="num">Fler evenemang</span><h3>Heja Uppsalas kalender</h3><p>Konserter, matcher och aktiviteter i hela Uppsala.</p></a>
+      <a class="icard" href="https://destinationuppsala.se/"><span class="num">Besöker du Uppsala?</span><h3>Destination Uppsala</h3><p>Tips för dig som besöker staden.</p></a>
+    </div>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap">
+    <div class="band dark"><div><span class="eyebrow">Utställare</span><h2>Vill du ställa ut på julmarknaden?</h2><p>Hantverkare, matproducenter, gårdsbutiker och foodtrucks kan anmäla intresse till Uppsala Historiska Julmarknad.</p></div><div style="display:flex;justify-content:flex-end"><a href="#arrangera" class="btn btn-glow">Anmäl intresse →</a></div></div>
+  </div></section>`,
+
+"galleri": () => {
+  const past = EVENTS.filter(e=>e.past||!isUpcoming(e)).sort((a,b)=>D(b.start)-D(a.start));
+  return `<div class="night"><div class="page-head"><div class="wrap"><div class="crumbs"><a href="#hem">Hem</a> / <a href="#evenemang">Evenemang</a> / Galleri &amp; tidigare</div><h1>Eventgalleri</h1><p class="lead">Bilder från tidigare evenemang i Uppsala city. Tagga dina bilder med @uppsalacity.</p></div></div></div>
+  <section><div class="wrap">
+    <div class="gal">${PAST_GALLERY.map((p,i)=>art(Object.keys(CATS)[i%8],"gg"+i,p)).join("")}</div>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap">
+    <div class="row-head"><div><span class="eyebrow">Tidigare evenemang</span><h2>Det här har hänt i år</h2></div></div>
+    <div class="news">${past.map(e=>`<a href="#event-${e.id}"><small>${dateLabel(e)}</small><h3>${e.t}</h3><p>${CATS[e.c].n}</p></a>`).join("")}</div>
+  </div></section>`;
+},
+
+"sparade": () => {
+  const list = sorted(EVENTS.filter(e=>SAVED.includes(e.id)));
+  return `<div class="night"><div class="page-head"><div class="wrap"><div class="crumbs"><a href="#hem">Hem</a> / Sparade</div><h1>Mina sparade evenemang</h1><p class="lead">Tryck på hjärtat på ett evenemang för att spara det här. Listan sparas i din webbläsare.</p></div></div></div>
+  <section><div class="wrap"><div class="grid">${list.length?list.map(card).join(""):`<div class="empty">Du har inte sparat något ännu. <a class="link" href="#evenemang">Hitta evenemang</a></div>`}</div></div></section>`;
+},
+
+"finns-i-city": () => `
+  <div class="night"><div class="page-head"><div class="wrap"><div class="crumbs"><a href="#hem">Hem</a> / Finns i city</div><h1>Verksamheter i city</h1><p class="lead">Butiker, kaféer, restauranger och hotell bland våra cirka 250 intressenter. Urval från sajten – i den riktiga katalogen får varje verksamhet adress, öppettider och länk.</p></div></div></div>
+  <section style="padding-top:44px"><div class="wrap">
+    <div class="toolbar"><label class="search" for="bizSearch"><span aria-hidden="true">⌕</span><input id="bizSearch" placeholder="Sök verksamhet…"></label>
+    <div class="seg" id="bizSeg"><button class="${bizNewOnly?"":"on"}" data-n="0">Alla</button><button class="${bizNewOnly?"on":""}" data-n="1">Nyöppningar</button></div></div>
+    <div class="filters" id="bizF"><button class="chip on" data-c="">Alla kategorier</button>${Object.entries(BIZCATS).map(([k,[n,c]])=>`<button class="chip" data-c="${k}"><i style="background:${c}"></i>${n}</button>`).join("")}</div>
+    <div class="dir" id="bizOut"></div>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap"><div class="band glow"><div><span class="eyebrow">För verksamheter</span><h2>Saknas ni i listan?</h2><p>Över 300 verksamheter är medlemmar. Som medlem syns ni här och i våra kanaler.</p></div><div style="display:flex;justify-content:flex-end"><a href="#om-oss" class="btn btn-dark">Bli medlem →</a></div></div></div></section>`,
+
+"besok": () => {
+  const day = new Date().getDay(), hr = new Date().getHours();
+  const rows = [["Vardagar","10–19",[1,2,3,4,5]],["Lördag","10–17",[6]],["Söndag","12–17",[0]]];
+  const open = (day>=1&&day<=5&&hr>=10&&hr<19)||(day===6&&hr>=10&&hr<17)||(day===0&&hr>=12&&hr<17);
+  return `<div class="night"><div class="page-head"><div class="wrap"><div class="crumbs"><a href="#hem">Hem</a> / Hitta hit &amp; öppettider</div><h1>Ta dig till city</h1><p class="lead">Parkering, söndagskupong och öppettider – allt du behöver inför besöket.</p></div></div></div>
+  <section><div class="wrap two-col">
+    <div><span class="eyebrow">Öppettider</span><h2>Rekommenderade öppettider</h2>
+      <p class="muted" style="margin:14px 0 24px">Uppsala Citysamverkan verkar för gemensamma öppettider i city. Avvikelser kan förekomma, så kolla gärna butikens egen sajt.</p>
+      ${open?`<span class="pill-open">De flesta butiker har öppet nu</span>`:`<span class="pill-open" style="background:#f6e3df;color:#a33">De flesta butiker har stängt just nu</span>`}
+      <table class="hours">${rows.map(([n,t,d])=>`<tr class="${d.includes(day)?"now":""}"><td>${n}${d.includes(day)?" (idag)":""}</td><td>${t}</td></tr>`).join("")}</table>
+      <h3 style="margin:36px 0 8px">Avvikande i jul och nyår</h3>
+      <table class="hours">${JULTIDER.map(([a,b])=>`<tr><td>${a}</td><td>${b}</td></tr>`).join("")}</table>
+    </div>
+    <div><span class="eyebrow">Parkering</span><h2>Gratis på söndagar</h2>
+      <p class="muted" style="margin:14px 0 24px">Parkera gratis på söndagar i utvalda garage med parkeringskupongen 2026. Hämta den hos verksamheter i city eller i de deltagande garagen.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px"><a class="btn btn-glow" href="https://uppsalacity.se/parkerings-kupong/">Hämta kupongen →</a><a class="btn btn-ghost" style="color:var(--ink)" href="https://www.google.com/maps/d/u/0/embed?mid=1NZfoW08WIvoYxQsPz0-qWh7Vfvd-Ow0">Parkeringskarta 2026</a></div>
+      <table class="hours garages">${GARAGES.map(([n,t])=>`<tr><td><strong>${n}</strong><br><span class="muted" style="font-size:14px">${t}</span></td></tr>`).join("")}</table>
+      <p class="muted" style="margin-top:12px;font-size:14px">Priserna kan ha ändrats – kontrollera hos Uppsala parkering och Aimo Park.</p>
+    </div>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap"><div class="band glow"><div><span class="eyebrow">Vägarbeten</span><h2>Ta dig fram i ett växande Uppsala</h2><p>Uppsala växer och det kan märkas på gator och torg. Här ser du var det byggs.</p></div><div style="display:flex;justify-content:flex-end"><a href="https://uppsalacity.se/vagarbete/" class="btn btn-dark">Läs om vägarbeten →</a></div></div></div></section>`;
+},
+
+"presentkort": () => `
+  <div class="night"><div class="page-head"><div class="wrap"><div class="crumbs"><a href="#hem">Hem</a> / Presentkort</div><h1>Uppsala City Presentkort</h1><p class="lead">Ett presentkort som stöttar de lokala verksamheterna – och låter mottagaren välja själv.</p></div></div></div>
+  <section><div class="wrap two-col">
+    <div class="art" data-art="ljus" data-seed="giftcard" style="aspect-ratio:1.6;border-radius:24px;box-shadow:0 30px 60px rgba(15,26,48,.18)"><canvas></canvas><div style="position:absolute;left:28px;bottom:24px;z-index:2"><img src="" class="logo-img" alt="Uppsala City" style="height:64px"><div style="color:var(--ink);font-weight:600;font-size:14px;margin-top:8px">Presentkort</div></div></div>
+    <div>
+      <span class="eyebrow">Så funkar det</span><h2>Köp, ge bort, handla</h2>
+      <div class="cards3" style="grid-template-columns:1fr;gap:12px;margin:26px 0">
+        <div class="icard"><span class="num">Var gäller det?</span><h3>Över 300 verksamheter</h3><p>Butiker, restauranger, kaféer, hotell och salonger hos medlemmar i Uppsala City och Upsala Handelsförening.</p></div>
+        <div class="icard"><span class="num">Var köper jag?</span><h3>Pressbyrån i city, ICA Kvantum Gränby, ICA Maxi</h3><p>Företag kan köpa mot faktura via info@uppsalahandelsforening.se.</p></div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn btn-dark" href="https://uppsalahandelsforening.se/har-kan-du-handla-med-presentkorten/">Se var kortet gäller →</a></div>
+    </div>
+  </div></section>`,
+
+"cityhjalte": () => {
+  const tips = [["Unna er lite vardagslyx",["Tullhuset SPA","Selma City Spa","Carl Frisör","Estetica Frisör","Spa på Home Hotel Uppsala"]],
+                ["Låt fikastunden bli lång",["Güntherska Hovkonditori","Landings Konditori","Forsa Hembageri","Café Årummet","Café Carl von Linné"]],
+                ["Njut av höstens charm",["Mento Home","Svart inredning","Tehörnan","Hemtex","Rockeponken"]]];
+  return `<div class="night"><div class="page-head"><div class="wrap"><div class="crumbs"><a href="#hem">Hem</a> / Cityhjälte</div><h1>Alla kan vara en Cityhjälte</h1><p class="lead">Varje gång du handlar, äter, sover över eller klipper dig i city bidrar du till en levande stadskärna. 2026 fortsätter Cityhjälte tillsammans med Puls i city.</p></div></div></div>
+  <section><div class="wrap">
+    <div class="row-head"><div><span class="eyebrow">Tips från city</span><h2>Bli en Cityhjälte i veckan</h2></div></div>
+    <div class="cards3">${tips.map(([h,l],i)=>`<div class="icard"><span class="num">0${i+1}</span><h3>${h}</h3><ul style="list-style:none;margin-top:14px;display:grid;gap:8px">${l.map(x=>`<li style="display:flex;gap:10px"><span style="color:var(--blue)">●</span>${x}</li>`).join("")}</ul></div>`).join("")}</div>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap two-col" style="align-items:center">
+    ${art("stad","citystjarnor","Bildplatshållare – Citystjärnor","r43")}
+    <div><span class="eyebrow">Citystjärnor</span><h2>Möt ansiktena bakom city</h2><p class="muted" style="margin:14px 0 22px;font-size:17px">Personalen i butiker, kaféer och restauranger är det som gör city till city. Lär känna några av dem.</p>
+    <a class="link" href="https://uppsalacity.se/cityhjalte/">Läs om kampanjen Ingen puls utan din</a></div>
+  </div></section>`;
+},
+
+"arrangera": () => `
+  <div class="night"><div class="page-head"><div class="wrap"><div class="crumbs"><a href="#hem">Hem</a> / Ställ ut i city</div><h1>Ställ ut på Uppsala Historiska Julmarknad</h1><p class="lead">5–6 december, kl 10–18 på S:t Eriks torg (Vintertorget). Vi söker hantverkare, matproducenter och gårdsbutiker med unikt hantverk, hemlagade delikatesser eller lokala produkter.</p></div></div></div>
+  <section><div class="wrap two-col">
+    <div>
+      <span class="eyebrow">Bra att veta</span><h2>Så anmäler du intresse</h2>
+      <div class="cards3" style="grid-template-columns:1fr;gap:12px;margin-top:26px">
+        <div class="icard"><span class="num">Hantverk, mat &amp; gårdsbutiker</span><h3>Fyll i intresseanmälan</h3><p>Uppsala Citysamverkan kan begränsa antalet säljare med liknande sortiment för en varierad marknad.</p></div>
+        <div class="icard"><span class="num">Foodtrucks</span><h3>Separat anmälan</h3><p>Foodtrucks anmäler sig via ett eget formulär.</p></div>
+        <div class="icard"><span class="num">Frågor?</span><h3>info@uppsalacity.se</h3><p>Arrangörer: Uppsala Citysamverkan, Destination Uppsala och Uppsala kommun.</p></div>
+      </div>
+    </div>
+    <form class="f" onsubmit="event.preventDefault();this.innerHTML='<div class=ok>Tack! Vi återkommer via e-post. (skiss – inget skickades)</div>'">
+      <div class="seg" style="justify-self:start" id="arrSeg"><button type="button" class="on" onclick="arrToggle(this)">Hantverk &amp; mat</button><button type="button" onclick="arrToggle(this)">Foodtruck</button></div>
+      <div class="two"><label for="a1">Företag / förening<input id="a1" required></label><label for="a2">Kontaktperson<input id="a2" required></label></div>
+      <div class="two"><label for="a3">E-post<input id="a3" type="email" required></label><label for="a4">Telefon<input id="a4" type="tel"></label></div>
+      <label>Vad säljer ni?</label>
+      <div class="checkrow">${["Hantverk","Delikatesser","Gårdsbutik","Lokala produkter","Julklappar","Dryck"].map((t,i)=>`<label for="ac${i}"><input type="checkbox" id="ac${i}"> ${t}</label>`).join("")}</div>
+      <label for="a5">Berätta om ert sortiment<textarea id="a5"></textarea></label>
+      <button class="btn btn-dark" type="submit" style="justify-self:start">Skicka intresseanmälan →</button>
+    </form>
+  </div></section>`,
+
+"aktuellt": () => `
+  <div class="night"><div class="page-head"><div class="wrap"><div class="crumbs"><a href="#hem">Hem</a> / Aktuellt</div><h1>Aktuellt i city</h1><p class="lead">Nyheter om evenemang, parkering, nyöppningar och stadsutveckling.</p></div></div></div>
+  <section><div class="wrap"><div class="news">${newsHtml()}</div></div></section>
+  <section style="padding-top:0"><div class="wrap">
+    <div class="row-head"><div><span class="eyebrow">Nyöppningar</span><h2>Nytt i city</h2></div><a href="#finns-i-city" class="link" onclick="bizNewOnly=true">Alla nyöppningar</a></div>
+    <div class="dir">${BIZ.filter(b=>b.nw).slice(0,8).map(bizCard).join("")}</div>
+  </div></section>`,
+
+"om-oss": () => `
+  <div class="night"><div class="page-head"><div class="wrap"><div class="crumbs"><a href="#hem">Hem</a> / Om oss</div><h1>Vi gör city levande</h1><p class="lead">Uppsala Citysamverkan AB arbetar tillsammans med fastighetsägare, kommunen, handlare och andra aktörer för ett varierat utbud av varor, tjänster, kultur och nöje – där mångfalden är en konkurrensfördel. Sedan 1996.</p></div></div></div>
+  <section><div class="wrap">
+    <div class="row-head"><div><span class="eyebrow">Kontakt</span><h2>Vi som jobbar här</h2></div></div>
+    <div class="cards3">${[["Lisa Thörn","VD","lisa@uppsalacity.se"],["Carolina Berg","Projektledare","carolina@uppsalacity.se"],["Alva Forslund","Projektassistent","alva@uppsalacity.se"]].map(([n,r,m])=>`<div class="icard"><div class="avatar">${n.split(" ").map(x=>x[0]).join("")}</div><h3>${n}</h3><p>${r}</p><p style="margin-top:10px"><a class="link" href="mailto:${m}">${m}</a></p></div>`).join("")}</div>
+    <p class="muted" style="margin-top:28px">Uppsala Citysamverkan AB · Box 1110, Östra Ågatan 13, 753 22 Uppsala · info@uppsalacity.se · Org.nr 556532-8589</p>
+  </div></section>
+  <section style="padding-top:0" id="stadsutveckling"><div class="wrap">
+    <div class="row-head"><div><span class="eyebrow">Stadsutveckling</span><h2>Projekt i stadskärnan</h2></div></div>
+    <div class="cards3">
+      <a class="icard" href="https://uppsalacity.se/planskilda-korsningar/"><span class="num">Pågår</span><h3>Planskilda korsningar</h3><p>Läs om projektet och hur det påverkar city.</p></a>
+      <a class="icard" href="https://bygg.uppsala.se/fardiga-projekt-och-omraden/gagatan/"><span class="num">Klart</span><h3>Södra gågatan</h3><p>Den södra delen av gågatan är färdigställd.</p></a>
+      <a class="icard" href="https://bygg.uppsala.se/fardiga-projekt-och-omraden/forumtorget/"><span class="num">Klart</span><h3>Forumkvarteret</h3><p>Det nya Forumkvarteret är färdigställt.</p></a>
+    </div>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap"><div class="band glow"><div><span class="eyebrow">Rapporter</span><h2>Uppsala RetailGuide</h2><p>Ett av Europas starkaste utvecklingsområden. Fakta om handeln och Uppsalas 237 000 invånare.</p></div><div style="display:flex;justify-content:flex-end"><a href="https://uppsalacity.se/retailguide/" class="btn btn-dark">Läs RetailGuide →</a></div></div></div></section>
+  <section style="padding-top:0" id="bli-medlem"><div class="wrap two-col">
+    <div><span class="eyebrow">Bli medlem</span><h2>Var med och forma city</h2><p class="muted" style="margin:14px 0 22px;font-size:17px">Över 300 verksamheter i city är redan medlemmar. Hör av dig så berättar vi mer.</p>
+      <ul style="list-style:none;display:grid;gap:12px;font-weight:500">${["Synlighet på hemsidan och i våra andra kanaler","Fritt deltagande på medlemsmöten, ungefär var sjätte vecka","Möjlighet att ta emot Uppsala City Presentkort","Delta i aktiviteter vi genomför under året","Marknadsföringsmaterial i print och digitalt inför evenemang","Information om det som påverkar er verksamhet, city och branschen"].map(t=>`<li style="display:flex;gap:12px"><span style="color:var(--blue)">●</span>${t}</li>`).join("")}</ul></div>
+    <form class="f" onsubmit="event.preventDefault();this.innerHTML='<div class=ok>Tack för ditt intresse! (skiss – inget skickades)</div>'">
+      <div class="two"><label for="m1">Verksamhet<input id="m1" required></label><label for="m2">Kontaktperson<input id="m2"></label></div>
+      <div class="two"><label for="m3">E-post<input id="m3" type="email"></label><label for="m4">Typ av verksamhet<select id="m4">${Object.values(BIZCATS).map(([n])=>`<option>${n}</option>`).join("")}<option>Fastighetsägare</option><option>Annat</option></select></label></div>
+      <button class="btn btn-dark" type="submit" style="justify-self:start">Kontakta oss om medlemskap →</button>
+    </form>
+  </div></section>`
+};
+
+function newsHtml(n){ return NEWS.slice(0,n||NEWS.length).map(x=>{const d=D(x.d);return `<a href="${x.h}"><small>${d.getDate()} ${MONL[d.getMonth()]} ${d.getFullYear()}</small><h3>${x.t}</h3><p>${x.s}</p></a>`;}).join(""); }
+function newsletter(){ return `<section style="padding-top:0"><div class="wrap"><div class="band dark">
+  <div><span class="eyebrow">Nyhetsbrev (förslag)</span><h2>Missa inget i city</h2><p>Få helgens evenemang, nyöppningar och erbjudanden i din inkorg.</p></div>
+  <form class="nl" onsubmit="event.preventDefault();this.innerHTML='<div class=ok>Tack! Du är anmäld. (skiss)</div>'"><label for="nlmail" style="position:absolute;left:-9999px">E-post</label><input id="nlmail" type="email" required placeholder="Din e-postadress"><button class="btn btn-glow" type="submit">Prenumerera</button></form>
+</div></div></section>`; }
+function bizCard(b){ return `<div class="biz"><span class="ico" style="background:${BIZCATS[b.c][1]}">${b.n[0]}</span>${b.nw?`<span class="new">Nyöppnat</span>`:""}<h3>${b.n}</h3><small>${BIZCATS[b.c][0]}${b.g?` · ${b.g}`:""}</small></div>`; }
+
+function mapPanel(k){
+  const p=PLACES[k], evs=upcoming().filter(e=>e.p===k);
+  return `<span class="eyebrow">Plats</span><h3>${p.n}</h3>
+  <div class="list">${evs.length?evs.map(e=>`<a href="#event-${e.id}"><small>${dateLabel(e)}${e.time?` · ${e.time}`:""}</small><strong>${e.t}</strong></a>`).join(""):`<p class="muted">Inga evenemang här just nu.</p>`}</div>
+  <a href="#evenemang" class="link" style="margin-top:auto;align-self:flex-start">Hela kalendern</a>`;
+}
+
+/* event detail */
+function eventDetail(id){
+  const e=evById(id); if(!e) return pages[""]();
+  const rel = upcoming().filter(x=>x.id!==e.id && (x.c===e.c||x.p===e.p)).slice(0,3);
+  const more = rel.length<3 ? upcoming().filter(x=>x.id!==e.id && !rel.includes(x)).slice(0,3-rel.length) : [];
+  return `<div class="night"><div class="detail-hero"><div class="wrap">
+    <div class="crumbs"><a href="#hem">Hem</a> / <a href="#evenemang">Evenemang</a> / ${e.t}</div>
+    <div class="detail-grid">
+      <div><div class="tags" style="margin-bottom:18px">${catTag(e)}${/Gratis|Fri entré/.test(e.price)?`<span class="tag free">${e.price}</span>`:""}${e.kids?`<span class="tag">Barnvänligt</span>`:""}</div>
+        <h1 style="font-size:clamp(40px,5.4vw,78px)">${e.t}</h1>
+        <div class="hero-meta" style="margin-top:26px;font-size:17px">${[dateLabel(e),e.time,PLACES[e.p].n].filter(Boolean).map(x=>`<span>${x}</span>`).join("")}</div></div>
+      <div style="position:relative">${art(e.c,e.id+"d","Bildplatshållare – eventfoto")}${e.past?"":countdownHtml(e)}</div>
+    </div>
+  </div></div></div>
+  <section><div class="wrap detail-body">
+    <div>
+      <p class="lead">${e.s}</p><p>${e.d}</p>
+      ${e.prog?`<h2 style="font-size:32px;margin-top:44px">Program</h2>
+      <ol class="program">${e.prog.map(([t,x])=>`<li><time>${t}</time><span>${x}</span></li>`).join("")}</ol>`:""}
+      ${e.link?`<p style="margin-top:24px"><a class="btn btn-ghost" style="color:var(--ink)" href="${e.link[1]}">${e.link[0]} ↗</a></p>`:""}
+      <h2 style="font-size:32px;margin-top:36px">Passa på i city</h2>
+      <p class="muted" style="margin-top:10px">Ta en fika eller middag i närheten. <a class="link" href="#finns-i-city">Se kaféer och restauranger</a></p>
+    </div>
+    <aside class="facts">
+      <dl>
+        <div><dt>När</dt><dd>${dateLabel(e)}${e.time?`<br><span class="muted">${e.time}</span>`:""}</dd></div>
+        <div><dt>Var</dt><dd>${PLACES[e.p].n}</dd></div>
+        ${e.price?`<div><dt>Pris</dt><dd>${e.price}</dd></div>`:""}
+        <div><dt>Arrangör</dt><dd>${e.org}</dd></div>
+      </dl>
+      <div class="minimap">${mapSvg(e.p)}</div>
+      <div class="actions" ${e.past?'style="display:none"':""}>
+        <button class="btn btn-dark" onclick="calModal('${e.id}')">Lägg till i kalendern</button>
+        <button class="btn btn-ghost" style="color:var(--ink)" onclick="shareEv('${e.id}')">Dela evenemanget</button>
+        <button class="btn btn-ghost heartbtn" style="color:var(--ink)" onclick="saveToggle('${e.id}');this.textContent=SAVED.includes('${e.id}')?'♥ Sparat':'♡ Spara'">${SAVED.includes(e.id)?"♥ Sparat":"♡ Spara"}</button>
+      </div>
+    </aside>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap">
+    <div class="row-head"><div><span class="eyebrow">Mer i city</span><h2>Du kanske också gillar</h2></div><a href="#evenemang" class="link">Alla evenemang</a></div>
+    <div class="grid">${[...rel,...more].map(card).join("")}</div>
+  </div></section>`;
+}
+function calModal(id){
+  const e=evById(id), m=document.getElementById("modal");
+  document.getElementById("modalBox").innerHTML = `<button class="x" onclick="closeModal()" aria-label="Stäng">×</button><h3>Lägg till i kalendern</h3><p class="muted">${e.t} · ${dateLabel(e)} · ${e.time}</p>
+  <div class="cal-opts">${["Google Kalender","Apple Kalender","Outlook"].map(t=>`<button onclick="closeModal();toast('${t}: i den riktiga sidan öppnas kalendern')">${t}<span>→</span></button>`).join("")}</div>`;
+  m.classList.add("open");
+}
+function closeModal(){ document.getElementById("modal").classList.remove("open"); }
+document.getElementById("modal").addEventListener("click",ev=>{ if(ev.target.id==="modal") closeModal(); });
+document.addEventListener("keydown",ev=>{ if(ev.key==="Escape") closeModal(); });
+function shareEv(id){ const e=evById(id); const txt=`${e.t} – ${dateLabel(e)}, ${PLACES[e.p].n}`; try{ navigator.clipboard.writeText(txt).then(()=>toast("Kopierat: "+txt),()=>toast(txt)); }catch(_){ toast(txt); } }
+function arrToggle(b){ b.parentElement.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b)); }
+
+/* evenemang page state */
+let evState = {view:"lista",when:"alla",cat:"",kids:false,q:"",month:null,day:null};
+let preset = null;
+function filterEvents(){
+  let list = upcoming();
+  const wk = TODAY.getDay(); const sat = addDays(TODAY,(6-wk+7)%7), sun = addDays(sat,1);
+  const fri = wk===0 ? TODAY : addDays(sat,-1);
+  const ranges = {idag:[TODAY,TODAY], helg:[wk===0?TODAY:fri, wk===0?TODAY:sun], vecka:[TODAY,addDays(TODAY,6)], manad:[TODAY,new Date(TODAY.getFullYear(),TODAY.getMonth()+1,0)]};
+  if(evState.day) list = list.filter(e=>onDay(e,D(evState.day)));
+  else if(ranges[evState.when]) list = list.filter(e=>inRange(e,...ranges[evState.when]));
+  if(evState.cat) list = list.filter(e=>e.c===evState.cat);
+  if(evState.kids) list = list.filter(e=>e.kids);
+  const q = evState.q.trim().toLowerCase();
+  if(q) list = list.filter(e=>(e.t+" "+e.s+" "+PLACES[e.p].n+" "+CATS[e.c].n).toLowerCase().includes(q));
+  return list;
+}
+function calHtml(){
+  const m = evState.month || new Date(TODAY.getFullYear(),TODAY.getMonth(),1);
+  const start = addDays(m, -((m.getDay()+6)%7));
+  const cells = Array.from({length:42},(_,i)=>addDays(start,i));
+  const base = EVENTS.filter(e=>!e.always&&(!evState.cat||e.c===evState.cat)&&(!evState.kids||e.kids));
+  return `<div class="cal"><div class="cal-head"><button onclick="calNav(-1)" aria-label="Föregående månad">‹</button><h3>${MONL[m.getMonth()]} ${m.getFullYear()}</h3><button onclick="calNav(1)" aria-label="Nästa månad">›</button></div>
+  <div class="cal-grid">${["Mån","Tis","Ons","Tor","Fre","Lör","Sön"].map(d=>`<div class="dow">${d}</div>`).join("")}
+  ${cells.map(d=>{ const evs=base.filter(e=>onDay(e,d)); const k=ymd(d);
+    return `<button class="cell ${d.getMonth()!==m.getMonth()?"out":""} ${k===ymd(TODAY)?"today":""} ${evState.day===k?"sel":""}" onclick="pickDay('${k}')"><span class="n">${d.getDate()}</span>${evs.slice(0,2).map(e=>`<span class="e" style="background:${CATS[e.c].c}">${e.t}</span>`).join("")}${evs.length>2?`<span class="more">+${evs.length-2} till</span>`:""}</button>`; }).join("")}
+  </div></div>`;
+}
+function calNav(n){ const m=evState.month||new Date(TODAY.getFullYear(),TODAY.getMonth(),1); evState.month=new Date(m.getFullYear(),m.getMonth()+n,1); renderEv(); }
+function pickDay(k){ evState.day = evState.day===k?null:k; renderEv(); }
+function renderEv(){
+  const out=document.getElementById("evOut"); if(!out) return;
+  const list=filterEvents();
+  const head = evState.day ? `Evenemang ${DOW[D(evState.day).getDay()]} ${D(evState.day).getDate()} ${MONL[D(evState.day).getMonth()]} · <a href="javascript:void 0" class="link" onclick="pickDay('${evState.day}')">visa alla</a>` : `${list.length} evenemang`;
+  out.innerHTML = (evState.view==="kalender"?calHtml():"") + `<div class="result-count">${head}</div><div class="grid">${list.length?list.map(card).join(""):`<div class="empty">Inga evenemang matchar filtret. Prova ett annat datum eller en annan kategori.</div>`}</div>`;
+  paintArt(out);
+}
+function bindEv(){
+  if(preset){ evState={...evState,when:"alla",cat:"",kids:false,day:null,...preset}; preset=null; }
+  document.getElementById("viewSeg").onclick=ev=>{const b=ev.target.closest("button");if(!b)return;evState.view=b.dataset.v;evState.day=null;b.parentElement.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));renderEv();};
+  document.getElementById("evSearch").oninput=ev=>{evState.q=ev.target.value;renderEv();};
+  const f=document.getElementById("whenF");
+  const sync=()=>f.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on", c.dataset.w?evState.when===c.dataset.w : c.dataset.c?evState.cat===c.dataset.c : evState.kids));
+  f.onclick=ev=>{const b=ev.target.closest(".chip");if(!b)return; evState.day=null;
+    if(b.dataset.w) evState.when=b.dataset.w; else if(b.dataset.c) evState.cat = evState.cat===b.dataset.c?"":b.dataset.c; else evState.kids=!evState.kids;
+    sync(); renderEv();};
+  sync(); renderEv();
+}
+function bindBiz(){
+  let cat="", onlyNew=bizNewOnly; bizNewOnly=false;
+  const draw=()=>{ const q=(document.getElementById("bizSearch").value||"").toLowerCase();
+    const list=BIZ.filter(b=>(!cat||b.c===cat)&&(!onlyNew||b.nw)&&(b.n+(b.g||"")).toLowerCase().includes(q));
+    document.getElementById("bizOut").innerHTML = list.length?list.map(bizCard).join(""):`<div class="empty">Inga träffar.</div>`; };
+  document.getElementById("bizSearch").oninput=draw;
+  document.getElementById("bizF").onclick=ev=>{const b=ev.target.closest(".chip");if(!b)return;cat=b.dataset.c;ev.currentTarget.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===b));draw();};
+  document.getElementById("bizSeg").onclick=ev=>{const b=ev.target.closest("button");if(!b)return;onlyNew=b.dataset.n==="1";ev.currentTarget.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));draw();};
+  draw();
+}
+function bindHome(){
+  const s=document.getElementById("strip");
+  s.onclick=ev=>{const b=ev.target.closest(".day");if(!b)return; stripSel = stripSel===b.dataset.d?null:b.dataset.d; s.innerHTML=stripHtml(); const l=document.getElementById("stripList"); l.innerHTML=stripList(); paintArt(l);};
+  const map=document.getElementById("map");
+  const pick=k=>{ const p=document.getElementById("mapPanel"); p.innerHTML=mapPanel(k); };
+  map.onclick=ev=>{const g=ev.target.closest(".pin"); if(g) pick(g.dataset.place);};
+  map.onkeydown=ev=>{const g=ev.target.closest(".pin"); if(g&&(ev.key==="Enter"||ev.key===" ")){ev.preventDefault();pick(g.dataset.place);}};
+  restartHero();
+}
+
+document.getElementById("savedCount").textContent = SAVED.length;
+
+document.querySelectorAll('.logo-img').forEach(i=>i.src=LOGO);
+/* router */
+function render(){
+  let p = location.hash.replace(/^#/,""); if(p==="hem") p="";
+  const app=document.getElementById("app");
+  clearInterval(heroTimer);
+  app.innerHTML = p.startsWith("event-") ? eventDetail(p.slice(6)) : (pages[p]||pages[""])();
+  app.querySelectorAll('.logo-img').forEach(i=>i.src=LOGO);
+  app.className=""; void app.offsetWidth; app.className="fade";
+  const top = p.startsWith("event-") ? "evenemang" : (p==="galleri"?"evenemang":p);
+  document.querySelectorAll(".menu a").forEach(a=>a.classList.toggle("active",a.dataset.p===top));
+  closeMenu(); window.scrollTo(0,0);
+  if(p==="") bindHome(); if(p==="evenemang") bindEv(); if(p==="finns-i-city") bindBiz();
+  requestAnimationFrame(()=>paintArt(document));
+}
+function toggleMenu(){
+  const h=document.querySelector("header").getBoundingClientRect().bottom; document.documentElement.style.setProperty("--hdr",Math.max(0,h)+"px");
+  const o=document.getElementById("menu").classList.toggle("open"); document.body.classList.toggle("menu-open",o);
+  const b=document.getElementById("burger"); b.classList.toggle("open",o); b.setAttribute("aria-expanded",o); b.setAttribute("aria-label",o?"Stäng meny":"Öppna meny");
+}
+function closeMenu(){document.getElementById("menu").classList.remove("open");document.body.classList.remove("menu-open");const b=document.getElementById("burger");b.classList.remove("open");b.setAttribute("aria-expanded","false");b.setAttribute("aria-label","Öppna meny");}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMenu();});
+document.getElementById("menu").addEventListener("click",e=>{if(e.target.closest("a"))closeMenu();});
+let rt; window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>paintArt(document),150);});
+
+/* lösenordsspärr */
+(function(){
+  const H="3fd23b8b";
+  const hash=s=>{let x=0x811c9dc5;for(const c of s){x^=c.codePointAt(0);x=Math.imul(x,0x01000193)>>>0;}return x.toString(16);};
+  document.getElementById("gateForm").addEventListener("submit",e=>{
+    e.preventDefault(); const v=document.getElementById("gatePw").value.trim();
+    if(hash(v)===H){ try{sessionStorage.setItem("uc-gate","1");}catch(_){} document.documentElement.classList.remove("locked"); requestAnimationFrame(()=>paintArt(document)); }
+    else { document.getElementById("gateErr").textContent="Fel lösenord, försök igen."; document.getElementById("gatePw").select(); }
+  });
+})();
+window.addEventListener("hashchange",render);
+render();
+</script>
+</body>
+</html>
